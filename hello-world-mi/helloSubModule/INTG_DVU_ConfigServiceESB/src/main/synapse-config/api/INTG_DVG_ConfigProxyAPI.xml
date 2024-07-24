@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/config" name="INTG_DVG_ConfigProxyAPI" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="GET">
+        <inSequence>
+            <payloadFactory media-type="xml">
+                <format>
+                    <con:show xmlns:con="http://com.dvg.wso2/configservice">
+                        <con:SEL_INTG_NAME>$1</con:SEL_INTG_NAME>
+                        <con:SEL_INSTITUTION>$2</con:SEL_INSTITUTION>
+                    </con:show>
+                </format>
+                <args>
+                    <arg evaluator="xml" expression="$url:intg"/>
+                    <arg evaluator="xml" expression="$url:inst"/>
+                </args>
+            </payloadFactory>
+            <header name="Action" scope="default" value="urn:show"/>
+            <send>
+                <endpoint>
+                    <address format="soap11" uri="local:///services/INTG_DVG_ConfigProxy/"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence>
+            <send/>
+        </outSequence>
+        <faultSequence/>
+    </resource>
+</api>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template name="INTG_DVG_LoadConfig" xmlns="http://ws.apache.org/ns/synapse">
+    <parameter name="integrationName"/>
+    <parameter name="institution"/>
+    <sequence>
+        <property expression="$func:integrationName" name="INTEGRATION" scope="default" type="STRING"/>
+        <property expression="$func:institution" name="INSTITUTION" scope="default" type="STRING"/>
+        <class name="com.age.wso2.config.ConfigParametersMediator"/>
+    </sequence>
+</template>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<proxy name="INTG_DVG_ConfigProxy" startOnLoad="true" transports="local http https" xmlns="http://ws.apache.org/ns/synapse">
+    <target>
+        <inSequence>
+            <log level="full">
+                <property name="ConfigProxy" value="Querying Properties"/>
+            </log>
+            <!-- 
+            <cache collector="false" hashGenerator="org.wso2.carbon.mediator.cache.digest.DOMHASHGenerator" id="configCache" scope="per-mediator" timeout="180">
+                <onCacheHit>
+                    <log level="custom">
+                        <property name="CACHE_STATUS" value="Cache hit - returning stored payload"/>
+                    </log>
+                    <header action="remove" name="To" scope="default"/>
+                    <send/>
+                </onCacheHit>
+                <implementation maxSize="1000" type="memory"/>
+            </cache>
+             -->
+            <filter xpath="get-property('system', 'esb.config.dss.url')">
+                <then>
+                    <log level="custom">
+                        <property name="URL_STATUS" value="using system property for config service dss url"/>
+                    </log>
+                    <property expression="get-property('system', 'esb.config.dss.url')" name="uri.var.servicedsspath" scope="default" type="STRING"/>
+                </then>
+                <else>
+                    <log level="custom">
+                        <property name="URL_STATUS" value="using localhost for config service dss url"/>
+                    </log>
+                    <property name="uri.var.servicedsspath" scope="default" type="STRING" value="http://localhost:8280/services/INTG_DVG_ConfigService"/>
+                </else>
+            </filter>
+			<property expression="//*[local-name()='SEL_INTG_NAME']"
+                   name="uri.var.integration"/>
+			<property expression="//*[local-name()='SEL_INSTITUTION']"
+                   name="uri.var.institution"/>
+			<log>
+				<property expression="get-property('uri.var.integration')"
+						  name="uri.var.integration"/>
+				<property expression="get-property('uri.var.institution')"
+						  name="uri.var.institution"/>
+			</log>
+            <property action="remove" name="TRANSPORT_HEADERS" scope="axis2"/>
+			<header name="Action" value=""/>
+			<property action="remove" name="SOAPAction" scope="transport"/>
+				<header name="Accept" scope="transport" value="application/xml"/>
+            <send>
+                <endpoint key="gov:configservice/endpoints/ConfigServiceDSSEndpoint.xml"/>
+            </send>
+        </inSequence>
+        <outSequence>
+            <!-- 
+            <cache collector="true" id="configCache" scope="per-mediator"/>
+             -->
+            <log level="full">
+                <property name="CACHE_STATUS" value="Cache miss - Request saved to cache"/>
+            </log>
+            <send/>
+        </outSequence>
+        <faultSequence/>
+    </target>
+</proxy>

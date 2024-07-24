@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><artifacts>
+    <artifact name="INTG_DVG_ConfigProxyAPI" groupId="com.dvg.wso2.INTG_DVG_ConfigServiceESB.api" version="1.0.0" type="synapse/api" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/api/INTG_DVG_ConfigProxyAPI.xml</file>
+    </artifact>
+    <artifact name="INTG_DVG_LoadConfig" groupId="com.dvg.wso2.INTG_DVG_ConfigServiceESB.template" version="1.0.0" type="synapse/sequenceTemplate" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/templates/INTG_DVG_LoadConfig.xml</file>
+    </artifact>
+    <artifact name="INTG_DVG_ConfigProxy" groupId="com.dvg.wso2.INTG_DVG_ConfigServiceESB.proxy-service" version="1.0.0" type="synapse/proxy-service" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/proxy-services/INTG_DVG_ConfigProxy.xml</file>
+    </artifact>
+    <artifact name="testProxy" groupId="com.dvg.wso2.INTG_DVG_ConfigServiceESB.proxy-service" version="1.0.0" type="synapse/proxy-service" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/proxy-services/testProxy.xml</file>
+    </artifact>
+    <artifact name="INTG_DVG_LoadAuditFlag" groupId="com.dvg.wso2.INTG_DVG_ConfigServiceESB.template" version="1.0.0" type="synapse/sequenceTemplate" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/templates/INTG_DVG_LoadAuditFlag.xml</file>
+    </artifact>
+    <artifact name="INTG_DVG_LoadDedupFlag" groupId="com.dvg.wso2.INTG_DVG_ConfigServiceESB.template" version="1.0.0" type="synapse/template" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/templates/INTG_DVG_LoadDedupFlag.xml</file>
+    </artifact>
+</artifacts>

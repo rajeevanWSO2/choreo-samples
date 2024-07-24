@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<proxy name="testProxy" startOnLoad="true" transports="http https" xmlns="http://ws.apache.org/ns/synapse">
+    <target>
+        <inSequence>
+            <payloadFactory media-type="xml">
+                <format>
+                    <con:show xmlns:con="http://com.dvg.wso2/configservice">
+                        <con:SEL_INTG_NAME>AdmissionsDataChannel</con:SEL_INTG_NAME>
+                        <con:SEL_INSTITUTION>DVG</con:SEL_INSTITUTION>
+                    </con:show>
+                </format>
+                <args/>
+            </payloadFactory>
+            <log level="custom">
+                <property name="STATUS" value="INVOKING TEMPLATE"/>
+                <property expression="$body" name="INPUT"/>
+            </log>
+            <call-template target="INTG_DVG_LoadConfig">
+                <with-param name="integrationName" value="AdmissionsDataChannel"/>
+                <with-param name="institution" value="DVG"/>
+            </call-template>
+            <log level="custom">
+                <property name="STATUS" value="FINISHED TEMPLATE"/>
+                <property expression="get-property('sfdc.url')" name="sfdc.url"/>
+            </log>
+            <call-template target="INTG_DVG_LoadAuditFlag">
+                <with-param name="institution" value="DVU"/>
+            </call-template>
+			
+            <log level="custom">
+                <property name="STATUS" value="Audit flag TEMPLATE"/>
+                <property expression="get-property('DemographichDataChannel')" name="demographic_flag_admission"/>
+                <property expression="get-property('MethodOfContactDataChannel')" name="moc_flag_admission"/>
+            </log>
+			<call-template target="INTG_DVG_LoadDedupFlag">
+				<with-param name="ObjectIdentifier" value="SATURN.SFRSTCA"></with-param>
+				<with-param name="pidm" value="182992" />
+				<with-param name="institution" value="DVU" />
+				<with-param name="integration" value="BannerToSFDCStudentCR" />
+			</call-template>
+			<log level="custom">
+                <property name="DEDUP_STATUS" value="Dedup flag TEMPLATE"/>
+                <property expression="get-property('182992')" name="PIDM from template"/>
+            </log>
+			<call-template target="INTG_DVG_LoadDedupFlag">
+				<with-param name="ObjectIdentifier" value="SATURN.SFRSTCA"></with-param>
+				<with-param name="pidm" value="182993" />
+				<with-param name="institution" value="DVU" />
+				<with-param name="integration" value="BannerToSFDCStudentCR" />
+			</call-template>
+			<log level="custom">
+                <property name="DEDUP_STATUS" value="Dedup flag TEMPLATE"/>
+				<property expression="get-property('182992')" name="PIDM from template"/>
+                <property expression="get-property('182993')" name="PIDM from template 2"/>
+            </log>
+            <respond/>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </target>
+</proxy>

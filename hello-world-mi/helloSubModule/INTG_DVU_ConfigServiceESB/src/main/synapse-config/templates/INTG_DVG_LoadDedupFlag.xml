@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template name="INTG_DVG_LoadDedupFlag" xmlns="http://ws.apache.org/ns/synapse">
+    <parameter name="ObjectIdentifier"/>
+    <parameter name="pidm"/>
+    <parameter name="institution"/>
+    <parameter name="integration"/>
+    <sequence>
+        <property expression="$func:ObjectIdentifier" name="ObjectIdentifier" scope="default" type="STRING"/>
+        <property expression="$func:pidm" name="pidm" scope="default" type="STRING"/>
+        <property expression="$func:institution" name="institution" scope="default" type="STRING"/>
+        <property expression="$func:integration" name="integration" scope="default" type="STRING"/>
+        <class name="com.age.wso2.config.DedupAQMessagesMediator"/>
+    </sequence>
+</template>
