@@ -77,15 +77,15 @@
         <checksumPolicy>ignore</checksumPolicy>
       </releases>
       <id>wso2-nexus</id>
-      <url>https://maven.wso2.org/nexus/content/groups/wso2-public/</url>
+      <url>http://maven.wso2.org/nexus/content/groups/wso2-public/</url>
     </repository>
     <repository>
       <id>wso2-maven2-repository-1</id>
-      <url>https://maven.wso2.org/nexus/content/groups/wso2-public/</url>
+      <url>http://dist.wso2.org/maven2</url>
     </repository>
     <repository>
       <id>wso2-nexus-repository-1</id>
-      <url>https://maven.wso2.org/nexus/content/groups/wso2-public/</url>
+      <url>http://maven.wso2.org/nexus/content/groups/wso2-public/</url>
     </repository>
   </repositories>
   <pluginRepositories>
@@ -96,15 +96,15 @@
         <checksumPolicy>ignore</checksumPolicy>
       </releases>
       <id>wso2-nexus</id>
-      <url>https://maven.wso2.org/nexus/content/groups/wso2-public/</url>
+      <url>http://maven.wso2.org/nexus/content/groups/wso2-public/</url>
     </pluginRepository>
     <pluginRepository>
       <id>wso2-maven2-repository-1</id>
-      <url>https://maven.wso2.org/nexus/content/groups/wso2-public/</url>
+      <url>http://dist.wso2.org/maven2</url>
     </pluginRepository>
     <pluginRepository>
       <id>wso2-nexus-repository-1</id>
-      <url>https://maven.wso2.org/nexus/content/groups/wso2-public/</url>
+      <url>http://maven.wso2.org/nexus/content/groups/wso2-public/</url>
     </pluginRepository>
   </pluginRepositories>
   <build>
@@ -122,7 +122,7 @@
       <plugin>
         <groupId>org.wso2.maven</groupId>
         <artifactId>maven-car-plugin</artifactId>
-        <version>2.1.1</version>
+        <version>5.2.42</version>
         <extensions>true</extensions>
         <executions>
           <execution>
@@ -133,15 +133,27 @@
             </goals>
           </execution>
         </executions>
-        <configuration>
-          <finalName>INTG-DVU-ConfigService-SW_${artifactId}-${version}</finalName>
-        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>com.sun.activation</groupId>
+            <artifactId>javax.activation</artifactId>
+            <version>1.2.0</version>
+          </dependency>
+        </dependencies>
+        <configuration />
       </plugin>
       <plugin>
         <groupId>org.wso2.maven</groupId>
         <artifactId>maven-car-deploy-plugin</artifactId>
-        <version>1.1.1</version>
+        <version>5.2.42</version>
         <extensions>true</extensions>
+        <dependencies>
+          <dependency>
+            <groupId>com.sun.activation</groupId>
+            <artifactId>javax.activation</artifactId>
+            <version>1.2.0</version>
+          </dependency>
+        </dependencies>
         <configuration>
           <carbonServers>
             <CarbonServer>
