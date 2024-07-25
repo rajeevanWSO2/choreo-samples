@@ -40,12 +40,6 @@
     </dependency>
   
     <dependency>
-      <groupId>com.dvg.wso2.INTG_DVG_ConfigServiceREG.resource</groupId>
-      <artifactId>ConfigServiceEndpoint</artifactId>
-      <version>1.0.0</version>
-      <type>zip</type>
-    </dependency>
-    <dependency>
       <groupId>com.dvg.wso2.INTG_DVG_ConfigServiceESB.proxy-service</groupId>
       <artifactId>testProxy</artifactId>
       <version>1.0.0</version>
